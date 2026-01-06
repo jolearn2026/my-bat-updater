@@ -11,8 +11,8 @@ set CURRENT_VERSION=1.0
 :: ======================
 :: GITHUB RAW URLS
 :: ======================
-set VERSION_URL=https://raw.githubusercontent.com/YOURNAME/my-bat-updater/main/version.txt
-set UPDATE_URL=https://raw.githubusercontent.com/YOURNAME/my-bat-updater/main/tool.bat
+set VERSION_URL=https://raw.githubusercontent.com/jolearn2026/my-bat-updater/main/version.txt
+set UPDATE_URL=https://raw.githubusercontent.com/jolearn2026/my-bat-updater/main/tool.bat
 
 set TMP_VERSION=%TEMP%\latest_version.txt
 set TMP_UPDATE=%TEMP%\tool_update.bat
