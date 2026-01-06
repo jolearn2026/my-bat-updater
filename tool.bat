@@ -11,9 +11,9 @@ set UPDATE_URL=https://raw.githubusercontent.com/jolearn2026/my-bat-updater/main
 set TMP_VERSION=%TEMP%\latest_version.txt
 set TMP_UPDATE=%TEMP%\tool_update.bat
 
-echo ============================
-echo        JO TOOL
-echo ============================
+echo         ============================
+echo              CHECK FOR UPDATE
+echo         ============================
 echo Current version: %CURRENT_VERSION%
 echo.
 
@@ -57,5 +57,5 @@ exit
 
 :run
 echo.
-echo DONE
-pause
+
+
