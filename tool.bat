@@ -3,14 +3,8 @@ setlocal EnableExtensions EnableDelayedExpansion
 title My Tool
 color 0e
 
-:: ======================
-:: CURRENT VERSION
-:: ======================
 set CURRENT_VERSION=1.0
 
-:: ======================
-:: GITHUB RAW URLS
-:: ======================
 set VERSION_URL=https://raw.githubusercontent.com/jolearn2026/my-bat-updater/main/version.txt
 set UPDATE_URL=https://raw.githubusercontent.com/jolearn2026/my-bat-updater/main/tool.bat
 
@@ -24,10 +18,10 @@ echo Current version: %CURRENT_VERSION%
 echo.
 
 :: ======================
-:: CHECK UPDATE
+:: GET LATEST VERSION (FIXED)
 :: ======================
 powershell -NoProfile -Command ^
-"(Invoke-WebRequest '%VERSION_URL%' -UseBasicParsing).Content.Trim()" > "%TMP_VERSION%" 2>nul
+"Invoke-WebRequest '%VERSION_URL%' -UseBasicParsing -OutFile '%TMP_VERSION%'" 2>nul
 
 if not exist "%TMP_VERSION%" (
     echo ERROR: Cannot check update
@@ -44,12 +38,24 @@ if "%LATEST_VERSION%"=="%CURRENT_VERSION%" (
 echo New version found: %LATEST_VERSION%
 echo Updating...
 
+:: ======================
+:: DOWNLOAD UPDATE (FIXED)
+:: ======================
 powershell -NoProfile -Command ^
-"Invoke-WebRequest '%UPDATE_URL%' -OutFile '%TMP_UPDATE%' -UseBasicParsing" 2>nul
+"Invoke-WebRequest '%UPDATE_URL%' -UseBasicParsing -OutFile '%TMP_UPDATE%'" 2>nul
 
+if not exist "%TMP_UPDATE%" (
+    echo ERROR: Update download failed
+    goto run
+)
+
+:: ======================
+:: APPLY UPDATE (SAFE)
+:: ======================
 copy /y "%TMP_UPDATE%" "%~f0" >nul
 
-echo Update done. Restarting...
+echo Update complete!
+echo Restarting...
 timeout /t 2 >nul
 start "" "%~f0"
 exit
