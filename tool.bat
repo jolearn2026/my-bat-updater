@@ -3,7 +3,7 @@ setlocal EnableExtensions
 title My Tool
 color 0e
 
-set CURRENT_VERSION=1.0
+set CURRENT_VERSION=1.1
 
 set VERSION_URL=https://raw.githubusercontent.com/jolearn2026/my-bat-updater/main/version.txt
 set UPDATE_URL=https://raw.githubusercontent.com/jolearn2026/my-bat-updater/main/tool.bat
