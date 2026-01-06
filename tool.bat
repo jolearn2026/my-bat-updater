@@ -49,10 +49,10 @@ if not exist "%TMP_UPDATE%" (
 
 copy /y "%TMP_UPDATE%" "%~f0" >nul
 
-echo Update complete!
-echo Restarting...
+echo Update complete. Restarting...
 timeout /t 2 >nul
-start "" "%~f0"
+
+cmd /c start "" "%~f0"
 exit
 
 :run
