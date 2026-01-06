@@ -1,5 +1,5 @@
 @echo off
-setlocal EnableExtensions EnableDelayedExpansion
+setlocal EnableExtensions DisableDelayedExpansion
 title My Tool
 color 0e
 
@@ -18,10 +18,10 @@ echo Current version: %CURRENT_VERSION%
 echo.
 
 :: ======================
-:: GET LATEST VERSION (FIXED)
+:: GET LATEST VERSION (SAFE)
 :: ======================
 powershell -NoProfile -Command ^
-"Invoke-WebRequest '%VERSION_URL%' -UseBasicParsing -OutFile '%TMP_VERSION%'" 2>nul
+"& { Invoke-WebRequest '%VERSION_URL%' -UseBasicParsing -OutFile '%TMP_VERSION%' }" 2>nul
 
 if not exist "%TMP_VERSION%" (
     echo ERROR: Cannot check update
@@ -39,28 +39,24 @@ echo New version found: %LATEST_VERSION%
 echo Updating...
 
 :: ======================
-:: DOWNLOAD UPDATE (FIXED)
+:: DOWNLOAD UPDATE (SAFE)
 :: ======================
 powershell -NoProfile -Command ^
-"Invoke-WebRequest '%UPDATE_URL%' -UseBasicParsing -OutFile '%TMP_UPDATE%'" 2>nul
+"& { Invoke-WebRequest '%UPDATE_URL%' -UseBasicParsing -OutFile '%TMP_UPDATE%' }" 2>nul
 
 if not exist "%TMP_UPDATE%" (
-    echo ERROR: Update download failed
+    echo ERROR: Update failed
     goto run
 )
 
-:: ======================
-:: APPLY UPDATE (SAFE)
-:: ======================
 copy /y "%TMP_UPDATE%" "%~f0" >nul
 
-echo Update complete!
-echo Restarting...
+echo Update done. Restarting...
 timeout /t 2 >nul
 start "" "%~f0"
 exit
 
 :run
 echo.
-echo Tool running normally...
+echo Tool running normally.
 pause
